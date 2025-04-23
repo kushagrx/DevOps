@@ -1,0 +1,35 @@
+name: FastAPI CI/CD
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: 3.11
+
+      - name: Install Dependencies
+        run: |
+          pip install fastapi uvicorn requests pytest pytest-asyncio httpx
+
+      - name: Start FastAPI Server in Background
+        run: |
+          uvicorn apiserver:app --host 0.0.0.0 --port 8000 & 
+          sleep 5  # Wait for the server to start
+
+      - name: Run Tests
+        run: |
+          pytest testAutomationPytest.py
