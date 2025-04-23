@@ -27,4 +27,4 @@ jobs:
       with:
         context: .
         push: true
-        tags: your-dockerhub-username/fastapi-app:latest
+        tags: kushagrabisht05/fastapi-app:latest
